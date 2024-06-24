@@ -1,32 +1,32 @@
 var dataRow = document.getElementById("dataRow");
 var findBtn = document.querySelector(".findBtn");
-
+var search = document.getElementById("find");
 var date,directoin="";
 var days=['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 var allData = [];
 var part1Data;
+
 getCity("cairo");
 
 
 findBtn.addEventListener('click',function(){
-    getCity(findBtn.value);
+    getCity(search.value);
 })
 
-// function run(){
-//     console.log(findBtn.value);
-//     getCity(findBtn.value)
-// };
 
 async function getCity(cityName) {
-    var response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=da1700e1ac6a49af868185407242206&q=${cityName}&days=3&aqi=no&alerts=no`);
+    // console.log(cityName);
+
+    try {
+        var response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=da1700e1ac6a49af868185407242206&q=${cityName}&days=3&aqi=no&alerts=no`);
 
     var data = await response.json();
 
     allData = data;
     part1Data=data;
     date = new Date();
-    console.log(allData.current.wind_dir);
-    console.log(directoin);
+    // console.log(allData.current.wind_dir);
+    // console.log(directoin);
 
     directoin=allData.current.wind_dir;
     // switch (allData.current.wind_dir) {
@@ -47,6 +47,13 @@ async function getCity(cityName) {
     //             break;
     // }
     addData();
+    } catch (error) {
+        console.log("ERROR");
+    }
+
+
+
+    
 }
 function addData() {
     var cartona = `
